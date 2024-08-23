@@ -2,8 +2,6 @@
 
 This project was inspired by the original [privateGPT](https://github.com/imartinez/privateGPT). Most of the description here is inspired by the original privateGPT.
 
-For detailed overview of the project, Watch this [Youtube Video](https://youtu.be/MlyoObdIHyo).
-
 In this model, I have replaced the GPT4ALL model with Vicuna-7B model and we are using the InstructorEmbeddings instead of LlamaEmbeddings as used in the original privateGPT. Both Embeddings as well as LLM will run on GPU instead of CPU. It also has CPU support if you do not have a GPU (see below for instruction).
 
 Ask questions to your documents without an internet connection, using the power of LLMs. 100% private, no data leaves your execution environment at any point. You can ingest documents and ask questions without an internet connection!
@@ -95,43 +93,6 @@ Note: When you run this for the first time, it will need internet connection to 
 
 Type `exit` to finish the script.
 
-# Run it on CPU
-
-By default, localGPT will use your GPU to run both the `ingest.py` and `run_localGPT.py` scripts. But if you do not have a GPU and want to run this on CPU, now you can do that (Warning: Its going to be slow!). You will need to use `--device_type cpu`flag with both scripts.
-
-For Ingestion run the following:
-
-```shell
-python ingest.py --device_type cpu
-```
-
-In order to ask a question, run a command like:
-
-```shell
-python run_localGPT.py --device_type cpu
-```
-
-# Run quantized for M1/M2:
-
-GGML quantized models for Apple Silicon (M1/M2) are supported through the llama-cpp library, [example](https://huggingface.co/TheBloke/Wizard-Vicuna-13B-Uncensored-GGML). GPTQ quantized models that leverage auto-gptq will not work, [see here](https://github.com/PanQiWei/AutoGPTQ/issues/133#issuecomment-1575002893). GGML models will work for CPU or MPS.
-
-## Troubleshooting
-
-**Install MPS:**
-1- Follow this [page](https://developer.apple.com/metal/pytorch/) to build up PyTorch with Metal Performance Shaders (MPS) support. PyTorch uses the new MPS backend for GPU training acceleration. It is good practice to verify mps support using a simple Python script as mentioned in the provided link.
-
-2- By following the page, here is an example of what you may initiate in your terminal
-
-```shell
-xcode-select --install
-conda install pytorch torchvision torchaudio -c pytorch-nightly
-pip install chardet
-pip install cchardet
-pip uninstall charset_normalizer
-pip install charset_normalizer
-pip install pdfminer.six
-pip install xformers
-```
 
 **Upgrade packages:**
 Your langchain or llama-cpp version could be outdated. Upgrade your packages by running install again.
